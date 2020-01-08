@@ -1,5 +1,5 @@
-var pg = require('pg');
-pg.defaults.ssl = true;
+//var pg = require('pg');
+//pg.defaults.ssl = true;
 const Sequelize = require('sequelize');
 const jsonfile = require('jsonfile');
 const bcrypt = require('bcrypt');
