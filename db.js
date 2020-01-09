@@ -6,7 +6,7 @@ const Sequelize = require('sequelize');
 var forcebb = false;
 const _UTILS = require('./utils');
 
-/*const sequelize = new Sequelize('proton', 'root', '', {
+const sequelize = new Sequelize('proton', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
     operatorsAliases: false,
@@ -15,8 +15,8 @@ const _UTILS = require('./utils');
     pool: { max: 5, min: 0, acquire: 30000, idle: 20000 },
 
 
-});*/
-const sequelize = new Sequelize('hJc21fUjxD', 'hJc21fUjxD', 'N6tPeBXUgW', {
+});
+/*const sequelize = new Sequelize('hJc21fUjxD', 'hJc21fUjxD', 'N6tPeBXUgW', {
     host: 'remotemysql.com',
     dialect: 'mysql',
     operatorsAliases: false,
@@ -25,7 +25,7 @@ const sequelize = new Sequelize('hJc21fUjxD', 'hJc21fUjxD', 'N6tPeBXUgW', {
     pool: { max: 5, min: 0, acquire: 30000, idle: 20000 },
 
 
-});
+});*/
 
 sequelize
     .authenticate()

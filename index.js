@@ -36,15 +36,15 @@ app.use('/data', require('./controllers/data_plain'));
 
 app.get('/', function(req, res) {
     // res.sendFile(__dirname + '/login.html');
+   res.sendFile(__dirname + '/auth.html');
+});
+app.get('/products', isLoggedIn,function(req, res) {
     res.sendFile(__dirname + '/graph.html');
 });
-app.get('/products', function(req, res) {
-    res.sendFile(__dirname + '/graph.html');
-});
-app.get('/qt', function(req, res) {
+app.get('/qt',isLoggedIn, function(req, res) {
     res.sendFile(__dirname + '/qt.html');
 });
-app.get('/sales-focust', function(req, res) {
+app.get('/sales-focust',isLoggedIn, function(req, res) {
     res.sendFile(__dirname + '/sf.html');
 });
 if (!module.parent) {
@@ -61,22 +61,22 @@ app.get('/success', (req, res) => res.send("Welcome " + req.query.username + "!!
 app.get('/error', (req, res) => res.send("error logging in"));
 
 passport.serializeUser(function(user, cb) {
-
-    console.log(user.id);
+   
+    console.log(user);
+   
+    //console.log(user.id);
     cb(null, user.id);
 });
 
 passport.deserializeUser(function(id, cb) {
-    /*User.findById(id, function(err, user) {
-        cb(err, user);
-    });*/
-    cb({ id });
-    /*_DB.findModelById("User", id, function( user) {
+ 
+    _DB.findModelById("User", id, function( user) {
         console.log("=================================================oooooooooooooooooooooooooooo=========================");
         console.log(user);
         console.log("=================================================oooooooooooooooooooooooooooo=========================");
-        cb(user);
-    });*/
+       cb(null,user);
+    });
+
 });
 
 /* PASSPORT LOCAL AUTHENTICATION */
@@ -106,19 +106,22 @@ passport.use(new LocalStrategy(
     }
 ));
 
-app.post('/login',
+/*app.post('/login',
     passport.authenticate('local', { failureRedirect: '/error' }),
     function(req, res) {
         console.log(req.isAuthenticated());
-        res.redirect('/success?username=' + req.user.email);
+        res.redirect('/success?username=' + req.user.id);
         //res.redirect('/sales-focust');
-    });
+    });*/
 
-/*app.post('/login', passport.authenticate('local', {
+app.post('/login', passport.authenticate('local', {
     failureRedirect: '/error',
     successRedirect: '/sales-focust'
-}));*/
-
+}));
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
 function isLoggedIn(req, res, next) {
     console.log(req.isAuthenticated());
     if (req.isAuthenticated()) {
