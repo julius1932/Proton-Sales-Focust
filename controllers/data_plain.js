@@ -69,5 +69,5 @@ app.post("/:model", (req, res, next) => {
             res.jsonp(results);
 
         });
-    }),
+    })
     module.exports = app;

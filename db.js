@@ -6,7 +6,7 @@ const Sequelize = require('sequelize');
 var forcebb = false;
 const _UTILS = require('./utils');
 
-/*const sequelize = new Sequelize('proton', 'root', '', {
+const sequelize = new Sequelize('proton', 'root', '', {
     host: 'localhost',
     dialect: 'mysql',
     operatorsAliases: false,
@@ -15,8 +15,8 @@ const _UTILS = require('./utils');
     pool: { max: 5, min: 0, acquire: 30000, idle: 20000 },
 
 
-});*/
-const sequelize = new Sequelize('hJc21fUjxD', 'hJc21fUjxD', 'N6tPeBXUgW', {
+});
+/*const sequelize = new Sequelize('hJc21fUjxD', 'hJc21fUjxD', 'N6tPeBXUgW', {
     host: 'remotemysql.com',
     dialect: 'mysql',
     operatorsAliases: false,
@@ -25,7 +25,7 @@ const sequelize = new Sequelize('hJc21fUjxD', 'hJc21fUjxD', 'N6tPeBXUgW', {
     pool: { max: 5, min: 0, acquire: 30000, idle: 20000 },
 
 
-});
+});*/
 
 sequelize
     .authenticate()
@@ -111,6 +111,19 @@ const _DB = {
         }
 
     },
+   findModelById: (model, id, callback) => {
+        if (model) {
+            model = model.toUpperCase();
+        }
+        if (checkModel(model)) {
+           let qry={ where: {id}};
+           console.log(qry);
+            MODELS[model].findAll(qry).then((results) => {
+                console.log(results[0].dataValues);
+                callback(results[0].dataValues);
+            });
+        }
+    },
     findOrCreateModel: function(model, qry, callback) {
         if (model) {
             model = model.toUpperCase();
@@ -168,16 +181,7 @@ const _DB = {
             });
         }
     },
-    findModelById: function(model, callback) {
-        if (model) {
-            model = model.toUpperCase();
-        }
-        if (checkModel(model)) {
-            MODELS[model].findById(customerId).then(result => {
-                callback(result);
-            })
-        }
-    },
+    
     updateModel: function(model, qry, data, callback) {
         if (model) {
             model = model.toUpperCase();
