@@ -36,7 +36,7 @@ app.use('/data', require('./controllers/data_plain'));
 
 app.get('/', function(req, res) {
     // res.sendFile(__dirname + '/login.html');
-    res.sendFile(__dirname + '/login.html');
+    res.sendFile(__dirname + '/graph.html');
 });
 app.get('/products', function(req, res) {
     res.sendFile(__dirname + '/graph.html');
